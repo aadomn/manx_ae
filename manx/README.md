@@ -3,8 +3,8 @@
 ## General information
 
 Our Manx implementations take as input parameters the functions related to the block cipher (i.e. key expansion and block encryption/decryption). This implies that the block cipher implementation should meet some requirements described below.
-The round keys are precomputed at the beginning of the mode so that they are not computed twice in case of two cipher calls. 
-If for some reason the key expansion function of your favorite block cipher is not defined (e.g. it is computed on the fly during encryption/decryption), a possible work around could be to define a dummy function that simply copies the key.
+The round keys are pre-computed at the beginning of the mode so that they are not computed twice in case of two cipher calls. 
+If for some reason the key expansion function of your favorite block cipher is not defined (e.g. it is computed on the fly during encryption/decryption), a possible workaround could be to define a dummy function that simply copies the key.
 Also note that, since the Manx modes have been designed to process very short inputs, all the input lengths are expected to be specified in bit-length.
 
 ## Configuration parameters
