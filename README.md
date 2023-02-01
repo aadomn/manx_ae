@@ -10,7 +10,7 @@ For more details, see the paper [Authenticated Encryption for Very Short Inputs]
 
 The Manx implementations provided in this repository are cipher-agnostic in the sense that the internal functions related to the underlying block cipher (i.e. key expansion and block encryption/decryption) are passed as arguments rather than being hardcoded.
 This way, it is easy to instantiate Manx with your favorite block cipher dynamically for tests/benchmarks purposes.
-However, note that the block cipher implementation should follow some requirements, see the README in `manx/` for more details.
+However, note that the block cipher implementation should follow some requirements, see the `manx/README.md` file for more details.
 
 ## Structure of the repository
 
