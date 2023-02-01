@@ -10,11 +10,11 @@ Note that this folder implements the encryption functions only, since the fixsli
 
 You can find below performance measurements (in clock cycles) for some parameter sets. These results were obtained on an STM32F407VG microcontroller with arm-none-eabi-gcc 10.3.1.
 
-| Parameters (ν, α, l)     | Algorithm                    | ARM Cortex-M4 |
-|:-------------------------|:--------------------------- :|:-------------:|
-| (64, 0, 120)             | Manx1-AES128<br>Manx2-AES128 | -<br>5400     |
-| (96, 0,  56)             | Manx1-AES128<br>Manx2-AES128 | 7800<br>5200  |
-| (64, 16, 44)             | Manx1-AES128<br>Manx2-AES128 | 7800<br>5000  |
+| Parameters (ν, α, l) | Algorithm                    | ARM Cortex-M4 |
+|:---------------------|:----------------------------:|:-------------:|
+| (64, 0, 120)         | Manx1-AES128<br>Manx2-AES128 | -<br>5400     |
+| (96, 0,  56)         | Manx1-AES128<br>Manx2-AES128 | 7800<br>5200  |
+| (64, 16, 44)         | Manx1-AES128<br>Manx2-AES128 | 7800<br>5000  |
 
 where (ν, α, l) refer to nonce, associated data and message lengths in bits, respectively. Note that `MANX1_ALPHAMAX` and `MANX2_ALPHAMAX` have been set to α in each case.
 Also note that all the results reported in the above table include the key expansion, pre-computing it would save ~1500 clock cycles.

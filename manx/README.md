@@ -11,7 +11,7 @@ Also note that, since the Manx modes have been designed to process very short in
 
 In `manx-config.h` there are few preprocessor variables that can be adjusted to test different configurations:
 - The maximum length of the additional data has to be defined by `MANX1_ALPHAMAX`/`MANX2_ALPHAMAX`.
-- The length of the additional data can be fixed so that it is not necessary to pad it. This can be done by setting `MANX1_VARIABLE_ADLEN`/`MANX2_VARIABLE_ADLEN` to 0.
+- The length of the additional data can be fixed so that it is not necessary to pad it. This can be done by setting `MANX1_VARIABLE_ADLEN`/`MANX2_VARIABLE_ADLEN` to `0`.
 
 ## Requirements on the block cipher implementation
 

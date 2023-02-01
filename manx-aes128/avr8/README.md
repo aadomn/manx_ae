@@ -13,11 +13,11 @@ When compiling, make sure to not consider `rijndaelfast.s` and `rijndaelfurious.
 
 You can find below performance measurements (in clock cycles) for some parameter sets. These results were obtained using Microchip Studio v7.0.2594 in debugging mode with avr-gcc 12.1.0.
 
-| Parameters (ν, α, l)     | Algorithm                    | ATMega128     |
-|:-------------------------|:--------------------------- :|:-------------:|
-| (64, 0, 120)             | Manx1-AES128<br>Manx2-AES128 | -<br>8400     |
-| (96, 0,  56)             | Manx1-AES128<br>Manx2-AES128 | 6500<br>7600  |
-| (64, 16, 44)             | Manx1-AES128<br>Manx2-AES128 | 6600<br>4600  |
+| Parameters (ν, α, l) | Algorithm                    | ATMega128     |
+|:---------------------|:----------------------------:|:-------------:|
+| (64, 0, 120)         | Manx1-AES128<br>Manx2-AES128 | -<br>8400     |
+| (96, 0,  56)         | Manx1-AES128<br>Manx2-AES128 | 6500<br>7600  |
+| (64, 16, 44)         | Manx1-AES128<br>Manx2-AES128 | 6600<br>4600  |
 
 where (ν, α, l) refer to nonce, associated data and message lengths in bits, respectively. Note that `MANX1_ALPHAMAX` and `MANX2_ALPHAMAX` have been set to α in each case.
 Also note that all the results reported in the above table include the key expansion, pre-computing it would save ~800 clock cycles.
@@ -58,10 +58,10 @@ This allows the compiler to make further optimizations that are not possible whe
 
 By following this strategy, the performance are now
 
-| Parameters (ν, α, l)     | Algorithm                    | ATMega128     |
-|:-------------------------|:--------------------------- :|:-------------:|
-| (64, 0, 120)             | Manx2-AES128                 | 7466          |
-| (96, 0,  56)             | Manx2-AES128                 | 7098          |
-| (64, 16, 44)             | Manx2-AES128                 | 4200          |
+| Parameters (ν, α, l) | Algorithm                    | ATMega128     |
+|:---------------------|:--------------------------- :|:-------------:|
+| (64, 0, 120)         | Manx2-AES128                 | 7466          |
+| (96, 0,  56)         | Manx2-AES128                 | 7098          |
+| (64, 16, 44)         | Manx2-AES128                 | 4200          |
 
 One can even go further by implementing a dedicated assembly routine for the shift instructions instead of using the C bitwise operations `<< 2` and `>> 6` as described in [this post](https://aykevl.nl/2021/02/avr-bitshift).
