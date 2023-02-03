@@ -8,7 +8,7 @@ Note that this folder implements the encryption functions only, since the fixsli
 
 ## Performance
 
-You can find below performance measurements (in clock cycles) for some parameter sets. These results were obtained on an STM32F407VG microcontroller with `arm-none-eabi-gcc 10.3.1`.
+You can find below performance measurements (in clock cycles, rounded to the nearest 100th) for some parameter sets. These results were obtained on an STM32F407VG microcontroller with `arm-none-eabi-gcc 10.3.1`.
 
 | Parameters (ν, α, l) | Algorithm                    | ARM Cortex-M4 |
 |:---------------------|:----------------------------:|:-------------:|
