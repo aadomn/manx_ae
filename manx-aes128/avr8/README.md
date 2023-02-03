@@ -11,7 +11,7 @@ When compiling, make sure to not consider `rijndaelfast.s` and `rijndaelfurious.
 
 ## Performance
 
-You can find below performance measurements (in clock cycles, rounded up to the nearest 100th) for some parameter sets. These results were obtained using Microchip Studio v7.0.2594 in debugging mode with `avr-gcc 12.1.0`.
+You can find below performance measurements (in clock cycles, rounded to the nearest 100th) for some parameter sets. These results were obtained using Microchip Studio v7.0.2594 in debugging mode with `avr-gcc 12.1.0`.
 
 | Parameters (ν, α, l) | Algorithm                    | ATMega128     |
 |:---------------------|:----------------------------:|:-------------:|
