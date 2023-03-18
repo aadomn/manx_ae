@@ -2,11 +2,11 @@
  * @file manx2.c
  * 
  * @brief Software implementation of the Manx2 authenticated encryption scheme.
- * See the paper at *** for more details.
+ * See the paper at https://eprint.iacr.org/2023/361.pdf for more details.
  *
  * @author Alexandre Adomnicai <alexandre@adomnicai.me>
  *
- * @date Feb 2023
+ * @date March 2023
  * 
  * ~~~
  *   |\/\
