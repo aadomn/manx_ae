@@ -4,7 +4,7 @@
 
 Manx is a family of two authenticated encryption modes, namely Manx1 and Manx2, finely tuned for very short inputs.
 More precisely, when instantiated with an n-bit block cipher, the total input length (i.e. the nonce, associated data and message) has to be less than 2n. Both modes require at most two cipher calls only.
-For more details, see the paper [Authenticated Encryption for Very Short Inputs](https://www.eprint.acr.org) by Kazuhiko Minematsu, Junji Shikata and myself published in the CT-RSA 2023 proceedings. 
+For more details, see the paper [Authenticated Encryption for Very Short Inputs](https://eprint.iacr.org/2023/361) by Kazuhiko Minematsu, Junji Shikata and myself published in the CT-RSA 2023 proceedings. 
 
 ## Cipher-agnostic implementations
 
