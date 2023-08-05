@@ -121,12 +121,10 @@ static inline void concat_bits(uint8_t out[], size_t *oct, size_t *bit, const ui
     if (*bit) {
 	    octlen = (inlen + *bit + 7) / 8; // +7 for ceiling division
 	    // shift the input to the right in a temporary array
-	    uint8_t tmp[octlen];
-	    rshift(tmp, in, inlen, *bit);
+	    uint8_t tmp = out[0];
+	    rshift(out, in, inlen, *bit);
 	    // append the bits to the output
-	    out[0] |= tmp[0];
-	    for (size_t i = 1; i < octlen; i++)
-	        out[i] = tmp[i];
+	    out[0] |= tmp;
 	    // increase the byte position accordingly
 	    *oct += octlen - (bitmod != 0);
 	}
