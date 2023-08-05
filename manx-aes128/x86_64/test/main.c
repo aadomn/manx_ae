@@ -13,34 +13,34 @@ int main(void) {
 
     int ret = manx1_enc(ctext, &outlen, key, nonce, 96, ptext, 30, ad, 64, aes128_enc, aes128_kexp);
     printf("manx1_enc (96, 30, 64) returned ret = %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < outlen/8; i++)
       printf("%02x", ctext[i]);
     printf("\n");
     ret = manx1_dec(ptext_bis, &outlen, key, nonce, 96, ctext, outlen, ad, 64, aes128_enc, aes128_dec, aes128_kexp);
     printf("manx1_dec (96, 30, 64) returned %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < (outlen+7)/8; i++)
       printf("%02x", ptext_bis[i]);
     printf("\n");
 
     ret = manx1_enc(ctext, &outlen, key, nonce, 128, ptext, 63, ad, 0, aes128_enc, aes128_kexp);
     printf("manx1_enc (128, 63, 0) returned ret = %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < outlen/8; i++)
       printf("%02x", ctext[i]);
     printf("\n");
     ret = manx1_dec(ptext_bis, &outlen, key, nonce, outlen, ctext, outlen, ad, 0, aes128_enc, aes128_dec, aes128_kexp);
     printf("manx1_dec (128, 63, 0) returned %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < (outlen+7)/8; i++)
       printf("%02x", ptext_bis[i]);
     printf("\n");
 
     ret = manx2_enc(ctext, &outlen, key, nonce, 64, ptext, 96, ad, 0, aes128_enc, aes128_kexp);
     printf("manx2_enc (64, 96, 0) returned ret = %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < outlen/8; i++)
       printf("%02x", ctext[i]);
     printf("\n");
     ret = manx2_dec(ptext_bis, &outlen, key, nonce, 64, ctext, outlen, ad, 0, aes128_dec, aes128_kexp);
     printf("manx2_dec (64, 96, 0) returned %d and outlen = %ld\n", ret, outlen);
-    for(int i = 0; i < 16; i++)
+    for(size_t i = 0; i < (outlen+7)/8; i++)
       printf("%02x", ptext_bis[i]);
     printf("\n");
 
