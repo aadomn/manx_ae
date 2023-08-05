@@ -151,21 +151,34 @@ int manx2_enc(uint8_t c[], size_t *clen,
     }
 
     // precomputes the round keys
-    kexpand(&roundkeys, k);
+    if (kexpand != NULL)
+        kexpand(&roundkeys, k);
 
     // in case of tiny message
     if (mlen <= r) {
         uint8_t t[BLOCKBYTES];
         init_tiny_msg(t, n, nlen, a, alen, m, mlen);
-        encrypt(c, t, &roundkeys); // C <- E_K(N || xx || \bar{A} || pad_r(M))
+        // C <- E_K(N || xx || \bar{A} || pad_r(M))
+        if (kexpand != NULL)
+            encrypt(c, t, &roundkeys);
+        else
+            encrypt(c, t, (roundkeys_t*)k);
         *clen = 128;
     }
     // in case of short message
     else {
         uint8_t t[2*BLOCKBYTES];
         init_short_msg(t, n, nlen, a, alen, m, mlen);
-        encrypt(c, t, &roundkeys);                                     // C[1] <- E_K(N || 00 || \bar{A} || M[1])
-        encrypt(c + BLOCKBYTES, t + BLOCKBYTES, &roundkeys); // C[2] <- E_K(N || 01 || pad_r(M[2]))
+        // C[1] <- E_K(N || 00 || \bar{A} || M[1])
+        // C[2] <- E_K(N || 01 || pad_r(M[2]))
+        if (kexpand != NULL) {
+            encrypt(c, t, &roundkeys);
+            encrypt(c + BLOCKBYTES, t + BLOCKBYTES, &roundkeys);
+        }
+        else {
+            encrypt(c, t, (roundkeys_t*)k);
+            encrypt(c + BLOCKBYTES, t + BLOCKBYTES, (roundkeys_t*)k);
+        }
         *clen = 256;
     }
 
@@ -194,10 +207,14 @@ int manx2_dec(uint8_t p[], size_t *plen,
     }
 
     roundkeys_t roundkeys;
-    kexpand(&roundkeys, k);
+    if (kexpand != NULL)
+        kexpand(&roundkeys, k);
 
     if (clen == BLOCKBITS) {
-        decrypt(s1, c, &roundkeys);
+        if (kexpand != NULL) 
+            decrypt(s1, c, &roundkeys);
+        else
+            decrypt(s1, c, (roundkeys_t*)k);
         init_tiny_msg(t, n, nlen, a, alen, c, 0);
         ds = GETBIT(s1[(nlen+1)/8], 7-((nlen+1)%8));
         CHGBIT(t[(nlen+1)/8], 7-((nlen+1)%8), ds);
@@ -219,8 +236,13 @@ int manx2_dec(uint8_t p[], size_t *plen,
     else {
         (void) n; // nonce is not required for decryption in case of short messages
         uint8_t s2[BLOCKBYTES];
-        decrypt(s1, c, &roundkeys);
-        decrypt(s2, c + BLOCKBYTES, &roundkeys);
+        if (kexpand != NULL) {
+            decrypt(s1, c, &roundkeys);
+            decrypt(s2, c + BLOCKBYTES, &roundkeys);
+        } else {
+            decrypt(s1, c, (roundkeys_t*)k);
+            decrypt(s2, c + BLOCKBYTES, (roundkeys_t*)k);
+        }
 
         init_tiny_msg(t, s2, nlen, a, alen, c, 0);
         CLRBIT(t[(nlen+1)/8], 7-((nlen+1)%8));

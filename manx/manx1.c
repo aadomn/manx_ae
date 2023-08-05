@@ -109,7 +109,7 @@ int manx1_enc(uint8_t c[], size_t *clen,
             const uint8_t m[], size_t mlen,
             const uint8_t a[], size_t alen,
             enc_func  enc,
-            kexp_func kexp)
+            kexp_func kexpand)
 {
     size_t  oct;
     size_t  bit;
@@ -119,7 +119,8 @@ int manx1_enc(uint8_t c[], size_t *clen,
     size_t  s   = MAX(BLOCKBITS - nlen + MANX_TAU, MANX1_ALPHAMAX);
 
     roundkeys_t roundkeys;
-    kexp(&roundkeys, k);
+    if (kexpand != NULL)
+        kexpand(&roundkeys, k);
 
     // ensure that |M| < n − τ
     if (mlen >= BLOCKBITS - MANX_TAU) {
@@ -155,7 +156,10 @@ int manx1_enc(uint8_t c[], size_t *clen,
     SETBIT(v[oct], 7-bit);
 
     // V[1] <- E_K(V[1])
-    enc(v1, v1, &roundkeys);
+    if (kexpand != NULL)
+        enc(v1, v1, &roundkeys);
+    else
+        enc(v1, v1, (roundkeys_t*)k);
 
     // V[1] <- 2V[1]
     doubling(v1);
@@ -164,7 +168,10 @@ int manx1_enc(uint8_t c[], size_t *clen,
     xor_block(v2, v2, v1);
 
     // C <- E_K(V[2])
-    enc(c, v2, &roundkeys);
+    if (kexpand != NULL)
+        enc(c, v2, &roundkeys);
+    else
+        enc(c, v2, (roundkeys_t*)k);
 
     // C <- C ^ V[1]
     xor_block(c, c, v1);  
@@ -180,7 +187,7 @@ int manx1_dec(uint8_t p[], size_t *plen,
             const uint8_t a[], size_t alen,
             enc_func enc,
             dec_func dec,
-            kexp_func kexp)
+            kexp_func kexpand)
 {
     size_t  oct;
     size_t  bit;
@@ -192,7 +199,8 @@ int manx1_dec(uint8_t p[], size_t *plen,
     uint8_t *v2 = v + BLOCKBYTES;
 
     roundkeys_t roundkeys;
-    kexp(&roundkeys, k);
+    if (kexpand != NULL)
+        kexpand(&roundkeys, k);
 
     s     = MAX(BLOCKBITS - nlen + MANX_TAU, MANX1_ALPHAMAX) ;
     v2len = s - (BLOCKBITS - nlen);
@@ -222,7 +230,10 @@ int manx1_dec(uint8_t p[], size_t *plen,
 #endif
 
     // S <- E_K(V[1])
-    enc(v1, v1, &roundkeys);
+    if (kexpand != NULL)
+        enc(v1, v1, &roundkeys);
+    else
+        enc(v1, v1, (roundkeys_t*)k);
 
     // S <- 2S
     doubling(v1);
@@ -231,7 +242,11 @@ int manx1_dec(uint8_t p[], size_t *plen,
     xor_block(v2_tilde, v1, c);
 
     // \tilde{v2} <- E_K^{-1}(S ^ C)
-    dec(v2_tilde, v2_tilde, &roundkeys);
+    if (kexpand != NULL)
+        dec(v2_tilde, v2_tilde, &roundkeys);
+    else
+        dec(v2_tilde, v2_tilde, (roundkeys_t*)k);
+
 
     // \tilde{v2} <- E_K^{-1}(S ^ C) ^ S
     xor_block(v2_tilde, v2_tilde, v1);
