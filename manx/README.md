@@ -18,7 +18,7 @@ In `manx-config.h` there are few preprocessor variables that can be adjusted to 
 - The cipher implementation should come with a header named `block_cipher.h`.
 - `block_cipher.h` should define the preprocessor variable `BLOCKBYTES` which refers to the block size in and bytes.
 - `block_cipher.h` should define a structure `roundkeys_t` to store the round key material.
-- The block cipher API should be compliant with the function types `kexp_func`, `enc_func` and `dec_func` defined in `manx.h`.
+- The block cipher API should be compliant with the function types `kexp_func`, `enc_func` and `dec_func` defined in `manx.h`. Note that it is possible to move the precomputation of the round key material outside the Manx AE modes: passing the `kexp_func` input parameter as `NULL` treats the `k` input parameter as round keys directly.
 
 ## Hardcoding internal calls to the block cipher
 
