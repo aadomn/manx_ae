@@ -35,5 +35,5 @@ The `manx-aes128` folder contains implementations of Manx1 and Manx2 instantiate
 The code related to the Manx AE modes released in this repository is under [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
 However, some block cipher implementations included in this repository might be under other licenses. If so, a folder-specific LICENSE file will be included. For instance, the AES implementations on AVR are based on [the work from B. Poettering](http://point-at-infinity.org/avraes/) which is under the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html).
 
-## Patent-free Notice
+## Patent-free notice
 The authors are not aware of any patent convering the Manx authenticated modes and do not intend to assert any patent claims in the future to promote wider adoption.
