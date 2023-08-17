@@ -22,9 +22,20 @@ manx_ae
 ├───manx
 │   
 ├───manx-aes128
+│   ├───armv6m
 │   ├───armv7m
 │   └───avr8
 │   └───x86_64
+│   
+├───manx-chaskey12
+│   ├───armv6m
+│   ├───armv7m
+│   └───avr8
+│   
+├───manx-gift128
+│   ├───armv6m
+│   ├───armv7m
+│   └───avr8
 ```
 
 The `manx` folder contains the generic implementations of Manx1 and Manx2: instructions on how to plug your favorite block cipher are given in the folder-specific README.

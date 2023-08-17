@@ -3,7 +3,10 @@
 
 #include <stdint.h>
 
-#define KEY_SIZE            16
+#define BLOCKBYTES 16
+
+// In our paper, Manx-GIFT128 benchmarks assume precomputed roundkeys
+typedef struct { } roundkeys_t;
 
 extern void giftb128_encrypt_block(uint8_t* out_block, const uint8_t* in_block, const uint32_t* rkey);
 
